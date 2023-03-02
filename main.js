@@ -99,7 +99,7 @@ app.post('/login', async (req, res) => {
     res.render('index', { 'name': req.session.userName, 'pass': req.session.passWord })
 })
 
-app.get('wrongaccount', (res,req)=>{
+app.get('/wrongaccount', (res,req)=>{
     res.render('wrongaccount')
 }) 
 
