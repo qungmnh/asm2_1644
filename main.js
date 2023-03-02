@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var session = require('express-session')
 var MongoClient = require('mongodb').MongoClient
-var url = ''
+var url = 'mongodb+srv://duc:harriS140902@cluster0.aazzgnx.mongodb.net/test'
 
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
@@ -32,10 +32,6 @@ app.get('/new', (req, res) => {
     res.render("newProduct")
 })
 
-app.get('/editAll', (req,res) => {
-    res.render("editProduct")
-})
-
 app.post('/newProduct', async (req, res) => {
     let name = req.body.txtName
     let price = req.body.txtPrice
@@ -53,7 +49,7 @@ app.post('/newProduct', async (req, res) => {
         'description': description,
     }
     let server = await MongoClient.connect(url)
-    let dbo = server.db("ATNToys")
+    let dbo = server.db("ATNToysShop")
     await dbo.collection("product").insertOne(product)
     res.render('index')
 })
@@ -62,7 +58,7 @@ app.get('/viewAll', async (req, res) => {
     //1. ket noi den server co dia chi trong url
     let server = await MongoClient.connect(url)
     //truy cap Database ATNToys
-    let dbo = server.db("ATNToys")
+    let dbo = server.db("ATNToysShop")
     //get data
     let products = await dbo.collection('product').find().toArray()
     res.render('allProduct', { 'products': products })
@@ -72,7 +68,7 @@ app.post('/search', async (req, res) => {
     let name = req.body.txtName
 
     let server = await MongoClient.connect(url)
-    let dbo = server.db("ATNToys")
+    let dbo = server.db("ATNToysShop")
     let products = await dbo.collection('product').find({ 'name': new RegExp(name, 'i') }).toArray()
     res.render('allProduct', { 'products': products })
 })
@@ -92,7 +88,7 @@ app.post('/login', async (req, res) => {
         return
     }
     let server = await MongoClient.connect(url)
-    let dbo = server.db("ATNToys")
+    let dbo = server.db("ATNToysShop")
     let result = await dbo.collection('users').find({ $and: [{ 'name': name, 'pass': pass }] }).toArray()
     if (result.length > 0) {
         res.redirect('/')
@@ -116,7 +112,7 @@ app.post('/registers', async (req, res) => {
         'pass': pass,
     }
     let server = await MongoClient.connect(url)
-    let dbo = server.db("ATNToys")
+    let dbo = server.db("ATNToysShop")
     await dbo.collection("users").insertOne(users)
     res.render('login')
 })
