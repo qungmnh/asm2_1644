@@ -93,13 +93,13 @@ app.post('/login', async (req, res) => {
     if (result.length > 0) {
         res.redirect('/')
     } else {
-        res.redirect('/wrongaccount')
+        res.render('wrongaccount')
         res.end()
     }
     res.render('index', { 'name': req.session.userName, 'pass': req.session.passWord })
 })
 
-app.get('/wrongaccount', (res,req)=>{
+app.get('/wrongaccount', (req,res) => {
     res.render('wrongaccount')
 }) 
 
