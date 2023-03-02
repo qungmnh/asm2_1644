@@ -32,6 +32,10 @@ app.get('/new', (req, res) => {
     res.render("newProduct")
 })
 
+app.get('/editAll', (req,res) => {
+    res.render("editProduct")
+})
+
 app.post('/newProduct', async (req, res) => {
     let name = req.body.txtName
     let price = req.body.txtPrice
