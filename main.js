@@ -75,7 +75,7 @@ app.post('/search', async (req, res) => {
 
 
 app.get('/doLogin', (req, res) => {
-    res.render("login", { 'name': req.session.userName, 'pass': req.session.password })
+    res.render("login", { 'name': req.session.userName, 'password': req.session.password })
 })
 
 app.post('/login', async (req, res) => {
@@ -89,7 +89,7 @@ app.post('/login', async (req, res) => {
     }
     let server = await MongoClient.connect(url)
     let dbo = server.db("ATNToys")
-    let result = await dbo.collection('users').find({ $and: [{ 'name': name, 'pass': pass }] }).toArray()
+    let result = await dbo.collection('users').find({ $and: [{ 'name': name, 'password': pass }] }).toArray()
     if (result.length > 0) {
         res.redirect('/')
     } else {
@@ -97,11 +97,11 @@ app.post('/login', async (req, res) => {
         res.write('Please Try Again Later')
         res.end()
     }
-    res.render('index', { 'name': req.session.userName, 'pass': req.session.passWord })
+    res.render('index', { 'name': req.session.userName, 'password': req.session.passWord })
 })
 
 app.get('/register',(req,res)=>{
-    res.render('register', { 'name': req.session.userName, 'pass': req.session.password })
+    res.render('register', { 'name': req.session.userName, 'password': req.session.password })
 })
 
 app.post('/registers', async (req, res) => {
@@ -109,7 +109,7 @@ app.post('/registers', async (req, res) => {
     let pass = req.body.txtPass
     let users = {
         'name': name,
-        'pass': pass,
+        'password': pass,
     }
     let server = await MongoClient.connect(url)
     let dbo = server.db("ATNToys")
