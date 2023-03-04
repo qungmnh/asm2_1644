@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var session = require('express-session')
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb+srv://duc:harriS140902@cluster0.aazzgnx.mongodb.net/test'
+var url = 'mongodb+srv://minh:123@cluster0.becvnl8.mongodb.net/test'
 
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
